@@ -1,0 +1,115 @@
+/* Загальний контейнер */
+.layout-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* Основний контент */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Контейнер всередині контенту */
+.main-content .container {
+    max-width: 900px;
+    width: 100%;
+}
+
+/* Сайдбар */
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar ul a {
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+}
+
+.sidebar ul a li {
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul a li:hover {
+    background-color: #495057;
+}
+
+/* Кнопки, заголовки, текст */
+.text-center h1 {
+    font-size: 36px;
+    color: #343a40;
+}
+
+.text-center p.lead {
+    font-size: 18px;
+    color: #555;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Головна сторінка блок */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.col-md-6 {
+    width: 50%;
+    padding: 15px;
+}
+
+@media (max-width: 768px) {
+    .layout-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .col-md-6 {
+        width: 100%;
+    }
+}
