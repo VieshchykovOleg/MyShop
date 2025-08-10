@@ -2,13 +2,24 @@
 {% block title %}Реєстрація{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="mb-4">Реєстрація</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Зареєструватися</button>
-    </form>
-    <p class="mt-3">Вже є акаунт? <a href="{% url 'login' %}">Увійти</a></p>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
+        <h4 class="text-center mb-4"><i class="bi bi-person-plus"></i> Створити акаунт</h4>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success w-100">Зареєструватися</button>
+        </form>
+        <hr>
+        <p class="text-center mb-0">Вже є акаунт? <a href="{% url 'login' %}">Увійти</a></p>
+    </div>
 </div>
 {% endblock %}
