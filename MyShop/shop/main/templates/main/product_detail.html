@@ -22,7 +22,7 @@
             <h4 class="text-success mb-4">{{ product.price }} грн</h4>
             <p class="mb-4">{{ product.description }}</p>
 
-            <a href="#" class="btn btn-primary btn-lg">🛒 Додати в кошик</a>
+           <a href="{% url 'add_to_basket' product.id %}" class="btn btn-primary btn-lg">🛒 Додати в кошик</a>
             <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-lg ms-2">⬅ Назад</a>
         </div>
     </div>

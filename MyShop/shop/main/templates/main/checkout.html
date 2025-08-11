@@ -1,0 +1,14 @@
+{% extends 'main/home.html' %}
+{% block content %}
+<h2>Оформлення замовлення</h2>
+<ul>
+  {% for item in items %}
+    <li>{{ item.product.title }} — {{ item.quantity }} шт. = {{ item.product.price|floatformat:2 }} грн</li>
+  {% endfor %}
+</ul>
+<p><strong>Загальна сума: {{ total }} грн</strong></p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-success">Підтвердити замовлення</button>
+</form>
+{% endblock%}

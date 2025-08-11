@@ -1,0 +1,94 @@
+{% extends 'main/home.html' %}
+
+{% block title %}
+  Кошик
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">🛒 Ваш кошик</h2>
+
+  {% if items %}
+    <div class="row">
+      {% for item in items %}
+        <div class="col-md-6 col-lg-4 mb-4" id="item-{{ item.id }}">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.product.title }}</h5>
+              <p class="card-text">
+                Кількість:
+                <strong id="quantity-{{ item.id }}">{{ item.quantity }}</strong> шт.
+              </p>
+              <div class="d-flex justify-content-between">
+                <button onclick="updateCart('{{ item.id }}', 'decrease')" class="btn btn-outline-secondary btn-sm">−</button>
+                <button onclick="updateCart('{{ item.id }}', 'increase')" class="btn btn-outline-primary btn-sm">+</button>
+                <button onclick="removeFromCart('{{ item.id }}')" class="btn btn-outline-danger btn-sm">🗑 Видалити</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'checkout' %}" class="btn btn-success">Оформити замовлення</a>
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      Кошик порожній 😔
+    </div>
+  {% endif %}
+</div>
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+function updateCart(itemId, action) {
+    fetch(`/cart/update/${itemId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=${action}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.quantity !== undefined) {
+          document.querySelector(`#quantity-${itemId}`).innerText = data.quantity;
+        }
+    })
+    .catch(console.error);
+}
+
+function removeFromCart(itemId) {
+    fetch(`/cart/remove/${itemId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.removed) {
+            document.querySelector(`#item-${itemId}`).remove();
+        }
+    })
+    .catch(console.error);
+}
+</script>
+{% endblock %}
