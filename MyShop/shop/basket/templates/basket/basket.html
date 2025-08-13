@@ -23,7 +23,6 @@
                 <button onclick="updateCart('{{ item.id }}', 'decrease')" class="btn btn-outline-secondary btn-sm">−</button>
                 <button onclick="updateCart('{{ item.id }}', 'increase')" class="btn btn-outline-primary btn-sm">+</button>
                 <button onclick="removeFromCart('{{ item.id }}')" class="btn btn-outline-danger btn-sm">🗑 Видалити</button>
-
               </div>
             </div>
           </div>
@@ -58,7 +57,7 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 
 function updateCart(itemId, action) {
-    fetch(`/cart/update/${itemId}/`, {
+    fetch(`{% url 'cart_update' 0 %}`.replace('0', itemId), {
         method: 'POST',
         headers: {
             'X-CSRFToken': csrftoken,
@@ -68,7 +67,7 @@ function updateCart(itemId, action) {
     })
     .then(res => res.json())
     .then(data => {
-        if(data.quantity !== undefined) {
+        if (data.quantity !== undefined) {
           document.querySelector(`#quantity-${itemId}`).innerText = data.quantity;
         }
     })
@@ -76,7 +75,7 @@ function updateCart(itemId, action) {
 }
 
 function removeFromCart(itemId) {
-    fetch(`/cart/remove/${itemId}/`, {
+    fetch(`{% url 'cart_remove' 0 %}`.replace('0', itemId), {
         method: 'POST',
         headers: {
             'X-CSRFToken': csrftoken
