@@ -10,9 +10,10 @@ build/
 
 venv/
 ENV/
-env/
+.env/
 .venv/
 
+MyShop/.env
 
 .idea/
 
@@ -34,4 +35,4 @@ htmlcov/
 .pytest_cache/
 
 .DS_Store
-Thumbs.db
+Thumbs.dbMyShop/.env 
