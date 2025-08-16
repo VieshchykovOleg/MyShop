@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'main',
     'accounts',
     'basket',
+    'comments',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
