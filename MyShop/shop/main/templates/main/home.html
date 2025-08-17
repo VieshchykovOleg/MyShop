@@ -72,6 +72,25 @@
 <main class="container mb-5">
     {% block content %}
         <h2 class="mb-4 fw-bold text-center">Наші товари</h2>
+
+        <!-- 🔎 Фільтр та пошук -->
+        <form method="get" class="row g-3 mb-4">
+            <div class="col-md-6">
+                <input type="text" name="q" class="form-control" placeholder="Пошук за назвою..." value="{{ request.GET.q }}">
+            </div>
+            <div class="col-md-4">
+                <select name="sort" class="form-select">
+                    <option value="">Сортувати...</option>
+                    <option value="price_asc"> {% if request.GET.sort == "price_asc" %}selected{% endif %}>Ціна: від дешевих</option>
+                    <option value="price_desc"> {% if request.GET.sort == "price_desc" %}selected{% endif %}>Ціна: від дорогих</option>
+                    <option value="rating_desc" >{% if request.GET.sort == "rating_desc" %}selected{% endif %}>Рейтинг: кращі</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Фільтрувати</button>
+            </div>
+        </form>
+
         <div class="row">
             {% for product in products %}
                 <div class="col-md-4 mb-4">
