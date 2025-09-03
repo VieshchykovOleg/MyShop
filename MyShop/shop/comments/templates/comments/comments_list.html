@@ -1,19 +1,46 @@
 {% extends 'main/home.html' %}
+{% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'comments/css/comments.css' %}">
+{% endblock %}
 {% block content %}
 <h2>Відгуки ({{ comments.count }})</h2>
-{% if comments %}
-    {% for comment in comments %}
-        <p><strong>{{ comment.user.username }}</strong>: {{ comment.text }} (Оцінка: {{ comment.rating }})</p>
-    {% endfor %}
-{% else %}
-    <p>Ще немає коментарів. Будьте першим!</p>
-{% endif %}
 
-<h3>Додати коментар</h3>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Надіслати</button>
-</form>
+<div class="comments-container">
+    <div class="comments-left">
+        {% if comments %}
+            <div class="comment-list">
+                {% for comment in comments %}
+                    <div class="comment-card">
+                        <strong>{{ comment.user.username }}</strong>
+                        <p>{{ comment.text }}</p>
+                        <div class="rating">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= comment.rating %}
+                                    ★
+                                {% else %}
+                                    ☆
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Ще немає коментарів. Будьте першим!</p>
+        {% endif %}
+    </div>
+
+    <div class="comments-right">
+        <h3>Додати коментар</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Надіслати</button>
+            <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">Назад</a>
+        </form>
+    </div>
+</div>
 {% endblock %}
+

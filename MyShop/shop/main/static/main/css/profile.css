@@ -1,0 +1,61 @@
+/* === Стилі тільки для сторінки профілю === */
+
+
+/* Картка профілю */
+.card {
+    border-radius: 18px;
+    border: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+/* Хедер картки */
+.card-header {
+    background: linear-gradient(135deg, #6c5ce7, #00cec9) !important;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border-bottom: none;
+}
+
+/* Текст у формі */
+.form-label {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+/* Інпути */
+form input, form select, form textarea {
+    border-radius: 12px !important;
+    padding: 10px 14px !important;
+    border: 1.5px solid #ddd !important;
+    transition: all 0.3s ease;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: #6c5ce7 !important;
+    box-shadow: 0 0 8px rgba(108,92,231,0.3);
+    outline: none;
+}
+
+/* Кнопка збереження */
+.btn-success {
+    background: linear-gradient(135deg, #00b894, #55efc4);
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #019875, #00cec9);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Помилки */
+.text-danger {
+    font-size: 0.9rem;
+    font-weight: 500;
+}

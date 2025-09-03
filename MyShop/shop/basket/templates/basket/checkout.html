@@ -1,14 +1,24 @@
 {% extends 'main/home.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
+{% endblock %}
 {% block content %}
-<h2>Оформлення замовлення</h2>
-<ul>
-  {% for item in items %}
-    <li>{{ item.product.title }} — {{ item.quantity }} шт. = {{ item.product.price|floatformat:2 }} грн</li>
-  {% endfor %}
-</ul>
-<p><strong>Загальна сума: {{ total }} грн</strong></p>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-success">Підтвердити замовлення</button>
-</form>
-{% endblock%}
+<div class="checkout-page">
+  <h2 class="checkout-page-title">Оформлення замовлення</h2>
+  <ul class="checkout-page-list">
+    {% for item in items %}
+      <li class="checkout-page-item">
+        <span class="checkout-product-title">{{ item.product.title }}</span>
+        <span class="checkout-product-quantity"> — {{ item.quantity }} шт.</span>
+        <span class="checkout-product-price">= {{ item.product.price|floatformat:2 }} грн</span>
+      </li>
+    {% endfor %}
+  </ul>
+  <p class="checkout-page-total"><strong>Загальна сума: {{ total }} грн</strong></p>
+  <form method="post" class="checkout-page-form">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success checkout-confirm-btn">Підтвердити замовлення</button>
+  </form>
+</div>
+{% endblock %}
