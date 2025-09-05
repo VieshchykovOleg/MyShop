@@ -1,5 +1,6 @@
-# comments/views.py
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from main.models import Product
 from .models import Comment
 from .forms import CommentForm
@@ -9,6 +10,9 @@ def comments_view(request, product_id):
     comments = Comment.objects.filter(product=product)
 
     if request.method == "POST":
+        if not request.user.is_authenticated:
+            messages.warning(request, "Щоб залишити відгук, потрібно увійти.")
+            return redirect("login")
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
